@@ -1,3 +1,4 @@
+
 # Nama workflow yang muncul di GitHub Actions
 name: Build and Release APK
 
@@ -21,8 +22,6 @@ jobs:
   # Pekerjaan pertama: membangun APK
   build:
     name: Build Flutter APK
-
-    # Menggunakan komputer virtual Ubuntu
     runs-on: ubuntu-latest
 
     # Mengirim versi ke pekerjaan release
@@ -64,7 +63,7 @@ jobs:
       # Membuat key.properties saat build
       - name: Create key.properties
         env:
-          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: |
@@ -107,7 +106,6 @@ jobs:
 
     # Menunggu pekerjaan build selesai
     needs: build
-
     runs-on: ubuntu-latest
 
     # Hanya membuat release untuk tag versi
